@@ -22,6 +22,8 @@ public class Movement : MonoBehaviour
     Vector3 targetPosition;
     Direction direction;
     public float speed = 5f;
+    public int maxHealth = 3;
+    private int currentHealth;
 
 
     private void Awake()
@@ -38,7 +40,8 @@ public class Movement : MonoBehaviour
     void Start()
     {
         targetPosition = transform.position;
-        direction = Direction.down;
+        currentHealth = maxHealth;
+        direction = Direction.down; 
 
         habilidades.AddRange(GetComponents<IAbility>());
 
@@ -110,6 +113,25 @@ public class Movement : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+        Debug.Log("Character collided");
+        if (other.CompareTag("Enemy"))
+        {
+            TakeDamage(1); 
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Debug.Log("Character took " + damage + " damage. Current health: " + currentHealth);
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Character has died.");
+        }
+    }
     private void SetActiveAbility(int index) 
     {
         if(index >= 0 && index < habilidades.Count) 
