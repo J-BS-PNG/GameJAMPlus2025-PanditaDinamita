@@ -13,22 +13,55 @@ public enum Direction
 
 public class Movement : MonoBehaviour
 {
+    public List<MonoBehaviour> componenteHabilidad = new List<MonoBehaviour>();
+    private List<IAbility> habilidades = new List<IAbility>();
+
+    private IAbility habilidadadActiva;
+    private bool habilidadActiva;
+
     Vector3 targetPosition;
     Direction direction;
     public float speed = 5f;
 
+
+    private void Awake()
+    {
+        //foreach(var comp in componenteHabilidad) 
+        //{
+        //    if(comp is IAbility habilidad) 
+        //    {
+        //        habilidades.Add(habilidad);
+        //    }
+        //}
+    }
     // Start is called before the first frame update
     void Start()
     {
         targetPosition = transform.position;
-        direction = Direction.down; 
+        direction = Direction.down;
+
+        habilidades.AddRange(GetComponents<IAbility>());
+
+        if(habilidades.Count > 0) 
+        {
+            habilidadadActiva = habilidades[0];
+            Debug.Log("Habilidad Activa incial: " + habilidadadActiva.GetName());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-            // Mientras se mueve, ignora nueva entrada
+        if (Input.GetKeyDown(KeyCode.Alpha1)) SetActiveAbility(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SetActiveAbility(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SetActiveAbility(2);
+
+        if (Input.GetKeyDown(KeyCode.Q) && habilidadadActiva != null) 
+        {
+            habilidadadActiva.UseAbility();
+        }
+        // Mientras se mueve, ignora nueva entrada
         if (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
@@ -68,6 +101,16 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         }
     }
+
+    private void SetActiveAbility(int index) 
+    {
+        if(index >= 0 && index < habilidades.Count) 
+        {
+            habilidadadActiva = habilidades[index];
+            Debug.Log("Habilidad Activa: " + habilidadadActiva.GetName());
+        }
+    }
+
 }
 
         
