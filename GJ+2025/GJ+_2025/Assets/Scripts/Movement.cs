@@ -16,11 +16,14 @@ public class Movement : MonoBehaviour
     Vector3 targetPosition;
     Direction direction;
     public float speed = 5f;
+    public int maxHealth = 3;
+    private int currentHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         targetPosition = transform.position;
+        currentHealth = maxHealth;
         direction = Direction.down; 
     }
 
@@ -66,6 +69,26 @@ public class Movement : MonoBehaviour
             }
 
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+        Debug.Log("Character collided");
+        if (other.CompareTag("Enemy"))
+        {
+            TakeDamage(1); 
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Debug.Log("Character took " + damage + " damage. Current health: " + currentHealth);
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Character has died.");
         }
     }
 }
