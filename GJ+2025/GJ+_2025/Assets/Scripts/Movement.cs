@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public enum Direction
@@ -27,23 +28,18 @@ public class Movement : MonoBehaviour
     private int currentHealth;
     private GameObject objectoCercano;
 
+    public List<Image> hearts = new List<Image>();
+    //public Sprite fullHeart;       // Corazón lleno
+    //public Sprite emptyHeart; 
 
-    private void Awake()
-    {
-        //foreach(var comp in componenteHabilidad) 
-        //{
-        //    if(comp is IAbility habilidad) 
-        //    {
-        //        habilidades.Add(habilidad);
-        //    }
-        //}
-    }
     // Start is called before the first frame update
     void Start()
     {
         targetPosition = transform.position;
         currentHealth = maxHealth;
         direction = Direction.down; 
+
+
 
         habilidades.AddRange(GetComponents<IAbility>());
 
@@ -119,6 +115,23 @@ public class Movement : MonoBehaviour
         }
     }
 
+
+    void UpdateHearts()
+    {
+
+        Image lastHeart = hearts[hearts.Count - 1];
+        hearts.RemoveAt(hearts.Count - 1);
+        Destroy(lastHeart.gameObject); // Elimina el objeto del Canvas
+    
+        /*for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < currentHealth)
+                hearts[i].sprite = fullHeart;
+            else
+                hearts[i].sprite = emptyHeart;
+        }*/
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -150,6 +163,7 @@ public class Movement : MonoBehaviour
     {
         currentHealth -= damage;
         Debug.Log("Character took " + damage + " damage. Current health: " + currentHealth);
+        UpdateHearts();
         if (currentHealth <= 0)
         {
             Debug.Log("Character has died.");
