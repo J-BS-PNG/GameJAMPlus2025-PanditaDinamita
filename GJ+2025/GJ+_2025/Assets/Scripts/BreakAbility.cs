@@ -42,20 +42,20 @@ public class BreakAbility : MonoBehaviour, IAbility
 
     public string GetName() => "Romper";
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
 
 
-        if (other.CompareTag("ObjectoB"))
+        if (other.gameObject.CompareTag("ObjectoB"))
         {
             objectoCercano = other.gameObject;
             Debug.Log("Se rompio");
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.CompareTag("ObjectoB"))
+        if (other.gameObject.CompareTag("ObjectoB"))
         {
             objectoCercano = null;
             Debug.Log("Salio de habilidad");
