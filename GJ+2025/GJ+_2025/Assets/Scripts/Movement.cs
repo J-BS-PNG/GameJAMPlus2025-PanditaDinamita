@@ -24,7 +24,9 @@ public class Movement : MonoBehaviour
     Direction direction;
     public float speed = 5f;
     public int maxHealth = 3;
+    private bool espacioObjecto = false;
     private int currentHealth;
+    private GameObject objectoCercano;
 
     public bool objectObtained;
 
@@ -60,9 +62,11 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && habilidadadActiva != null) 
         {
-            if (habilidadadActiva.canUse()) 
+            if (habilidadadActiva.canUse() && espacioObjecto) 
             {
+                Destroy(objectoCercano);
                 habilidadadActiva.UseAbility();
+                //Destroy(other.gameObject);
             }
             else 
             {
@@ -70,6 +74,8 @@ public class Movement : MonoBehaviour
             }
 
         }
+
+
         // Mientras se mueve, ignora nueva entrada
         if (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
@@ -140,6 +146,22 @@ public class Movement : MonoBehaviour
         {
             objectObtained = true;
             Debug.Log("Object obtained!");
+
+        if (other.CompareTag("ObjectoB"))
+        {
+            objectoCercano = other.gameObject;
+            espacioObjecto = true;
+            Debug.Log("Se rompio");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("ObjectoB"))
+        {
+            objectoCercano = null;
+            espacioObjecto = false;
+            Debug.Log("Salio de habilidad");
         }
     }
 
