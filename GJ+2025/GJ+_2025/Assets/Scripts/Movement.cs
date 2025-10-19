@@ -18,7 +18,11 @@ public class Movement : MonoBehaviour
     public List<MonoBehaviour> componenteHabilidad = new List<MonoBehaviour>();
     private List<IAbility> habilidades = new List<IAbility>();
 
-    private IAbility habilidadadActiva;
+    private IAbility habilidadadActiva; //poderes
+
+    public int habilidadesRestantes; 
+    public List<Image> habilidadesIcons = new List<Image>();
+
     private bool habilidadActiva;
 
     Vector3 targetPosition;
@@ -35,6 +39,9 @@ public class Movement : MonoBehaviour
     public List<Image> hearts = new List<Image>();
     private Rigidbody2D rb;
 
+    private SpriteRenderer spriteRenderer;
+
+
     //public Sprite fullHeart;       // Corazón lleno
     //public Sprite emptyHeart; 
 
@@ -44,6 +51,8 @@ public class Movement : MonoBehaviour
         targetPosition = transform.position;
         currentHealth = maxHealth;
         direction = Direction.down; 
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
 
 
 
@@ -75,6 +84,9 @@ public class Movement : MonoBehaviour
             if (habilidadadActiva.canUse()) 
             {
                 habilidadadActiva.UseAbility();
+                habilidadesRestantes = habilidadadActiva.remainingUses();
+                debug.Log($"Usando {habilidadadActiva.GetName()}, usos restantes: {habilidadesRestantes}");
+                UpdatePower();
                 //Destroy(other.gameObject);
             }
             else 
@@ -88,24 +100,63 @@ public class Movement : MonoBehaviour
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput.normalized * speed;
 
-
-
     }
 
     private void FixedUpdate()
     {
         // Movimiento físico estable
         rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
+            // Solo voltear el sprite
+        if (moveInput.x != 0)
+            spriteRenderer.flipX = moveInput.x > 0;
     }
 
+    void MoveAndFlip(Vector2 direction)
+    {
+        // Movimiento
+        transform.position += (Vector3)(direction * speed * Time.deltaTime);
+
+        // Flip del sprite (solo si se mueve horizontalmente)
+        if (direction.x != 0)
+            spriteRenderer.flipX = direction.x > 0;
+
+    }
+
+    void UpdatePower(){
+        Image lastIcon = habilidadesIcons[habilidadesIcons.Count - 1];
+        habilidadesIcons.RemoveAt(habilidadesIcons.Count - 1);
+        Destroy(lastIcon.gameObject);
+    }
 
     void UpdateHearts()
     {
+        if (hearts.Count == 0)
+            return;
+
         Image lastHeart = hearts[hearts.Count - 1];
         hearts.RemoveAt(hearts.Count - 1);
-        Destroy(lastHeart.gameObject); // Elimina el objeto del Canvas
+
+        // 🔹 Animación con LeanTween: escala y desvanecimiento
+        RectTransform heartRect = lastHeart.GetComponent<RectTransform>();
+        CanvasGroup cg = lastHeart.GetComponent<CanvasGroup>();
+
+        // Si no tiene CanvasGroup, se lo agregamos
+        if (cg == null)
+            cg = lastHeart.gameObject.AddComponent<CanvasGroup>();
+
+        // Escalar hacia abajo y desvanecer
+        LeanTween.scale(heartRect, Vector3.zero, 0.3f)
+            .setEaseInBack();
+
+        LeanTween.alphaCanvas(cg, 0f, 0.3f)
+            .setEaseInCubic()
+            .setOnComplete(() =>
+            {
+                Destroy(lastHeart.gameObject); // Elimina el objeto después de la animación
+            });
     }
-    
+
+
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("Character collided");
