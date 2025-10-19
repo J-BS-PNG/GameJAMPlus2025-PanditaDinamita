@@ -85,6 +85,6 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("All dialogs finished. Loading next scene...");
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Gloriplayground"); // Cambia por el nombre de tu escena
+        SceneManager.LoadScene("SceneJosue"); // Cambia por el nombre de tu escena
     }
 }
