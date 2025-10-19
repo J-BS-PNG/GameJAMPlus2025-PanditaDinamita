@@ -24,9 +24,7 @@ public class Movement : MonoBehaviour
     Direction direction;
     public float speed = 5f;
     public int maxHealth = 3;
-    private bool espacioObjecto = false;
     private int currentHealth;
-    private GameObject objectoCercano;
 
     public bool objectObtained;
 
@@ -55,6 +53,11 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (habilidadadActiva is DashAbility dash && dash.isDashing) 
+        {
+            Debug.Log($"entro al saltar el dash.");
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) SetActiveAbility(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) SetActiveAbility(1);
@@ -62,9 +65,8 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && habilidadadActiva != null) 
         {
-            if (habilidadadActiva.canUse() && espacioObjecto) 
+            if (habilidadadActiva.canUse()) 
             {
-                Destroy(objectoCercano);
                 habilidadadActiva.UseAbility();
                 //Destroy(other.gameObject);
             }
@@ -147,23 +149,18 @@ public class Movement : MonoBehaviour
             objectObtained = true;
             Debug.Log("Object obtained!");
 
-        if (other.CompareTag("ObjectoB"))
-        {
-            objectoCercano = other.gameObject;
-            espacioObjecto = true;
-            Debug.Log("Se rompio");
-        }
     }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    public Direction GetCurrentDirection() 
     {
-        if (other.CompareTag("ObjectoB"))
-        {
-            objectoCercano = null;
-            espacioObjecto = false;
-            Debug.Log("Salio de habilidad");
-        }
+        return direction;
+    }
+
+    public void SetPosition(Vector2 newPosition) 
+    {
+        transform.position = newPosition;
+        targetPosition = newPosition;
     }
 
     void TakeDamage(int damage)

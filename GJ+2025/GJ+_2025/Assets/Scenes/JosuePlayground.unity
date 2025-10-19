@@ -568,6 +568,7 @@ MonoBehaviour:
   componenteHabilidad: []
   speed: 5
   maxHealth: 3
+  hearts: []
 --- !u!212 &1563440191
 SpriteRenderer:
   m_ObjectHideFlags: 0
