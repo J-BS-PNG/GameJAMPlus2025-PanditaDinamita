@@ -9,18 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 332c240ad36d3ab4bbe8704578a0d8df
   - enabled: 1
-    path: Assets/Scenes/GloriPlayground.unity
-    guid: 8cc2391b1568cec45a347522aa118eb7
-  - enabled: 1
-    path: Assets/Scenes/Level1.unity
-    guid: 221f9f6b97886e044a1a65fa8c712d33
-  - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
-    guid: 3fa421c0c4f30db4aaec23009b8aeeaa
+    path: Assets/Scenes/SceneJosue.unity
+    guid: e2e621bf688e1894d8b6378ae0660c16
   - enabled: 1
     path: Assets/Scenes/Endings.unity
     guid: e66d4fc8fb0be614db5f10fffa335b3d
-  - enabled: 1
-    path: Assets/Scenes/SceneJosue.unity
-    guid: e2e621bf688e1894d8b6378ae0660c16
   m_configObjects: {}
