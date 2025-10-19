@@ -2367,6 +2367,7 @@ MonoBehaviour:
   dialogueBubblePrefab: {fileID: 2759105459389334708, guid: 5c895c36a49b22b4893f024115ace59f, type: 3}
   uiCanvas: {fileID: 727856394}
   bubbleDuration: 3
+  sceneName: Endings
 --- !u!1 &1404181003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2632,6 +2633,8 @@ MonoBehaviour:
   - {fileID: 705782270}
   - {fileID: 1939747447}
   - {fileID: 915657722}
+  audio1: {fileID: 0}
+  audio2: {fileID: 0}
 --- !u!212 &1563440191
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8829,7 +8832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 574305043724436523, guid: 4a543ebcc9f23a64ab4c6edd3ef64932, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.23
+      value: -2.63
       objectReference: {fileID: 0}
     - target: {fileID: 574305043724436523, guid: 4a543ebcc9f23a64ab4c6edd3ef64932, type: 3}
       propertyPath: m_LocalPosition.y

@@ -24,8 +24,10 @@ public class NPC : MonoBehaviour
         player.objectObtained = false;
     }
 
+
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Player entered NPC trigger.");
         if (other.CompareTag("Player"))
         {
             if (player.objectObtained){
@@ -79,7 +81,7 @@ public class NPC : MonoBehaviour
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 
         float pixelOffsetX = 1200f; // lado donde quieres que aparezca
-        screenPos.x += playerIsLeft ? pixelOffsetX : -pixelOffsetX;
+        screenPos.x += playerIsLeft ? -pixelOffsetX : -pixelOffsetX;
 
         activeBubble.transform.position = screenPos;
 

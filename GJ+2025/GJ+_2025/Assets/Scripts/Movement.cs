@@ -46,9 +46,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private AudioClip audio2;
 
 
-
-
-
     //public Sprite fullHeart;       // Corazón lleno
     //public Sprite emptyHeart; 
 
@@ -59,9 +56,6 @@ public class Movement : MonoBehaviour
         currentHealth = maxHealth;
         direction = Direction.down; 
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-
-
 
         habilidades.AddRange(GetComponents<IAbility>());
         rb = GetComponent<Rigidbody2D>();
@@ -77,6 +71,13 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            // Reinicia la escena actual
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         if (habilidadadActiva is DashAbility dash && dash.isDashing) 
         {
             Debug.Log($"entro al saltar el dash.");
@@ -84,8 +85,8 @@ public class Movement : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) SetActiveAbility(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SetActiveAbility(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SetActiveAbility(2);
+        //if (Input.GetKeyDown(KeyCode.Alpha2)) SetActiveAbility(1);
+        //if (Input.GetKeyDown(KeyCode.Alpha3)) SetActiveAbility(2);
 
         if (Input.GetKeyDown(KeyCode.Q) && habilidadadActiva != null) 
         {
@@ -200,6 +201,7 @@ public class Movement : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("Character took " + damage + " damage. Current health: " + currentHealth);
         UpdateHearts();
+        
         if (currentHealth <= 0)
         {
             Debug.Log("Character has died.");
