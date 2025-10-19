@@ -29,7 +29,12 @@ public class Movement : MonoBehaviour
 
     public bool objectObtained;
 
+    private Vector2 moveInput;
+    private Vector2 moveVelocity;
+
     public List<Image> hearts = new List<Image>();
+    private Rigidbody2D rb;
+
     //public Sprite fullHeart;       // Corazón lleno
     //public Sprite emptyHeart; 
 
@@ -43,8 +48,9 @@ public class Movement : MonoBehaviour
 
 
         habilidades.AddRange(GetComponents<IAbility>());
+        rb = GetComponent<Rigidbody2D>();
 
-        if(habilidades.Count > 0) 
+        if (habilidades.Count > 0) 
         {
             habilidadadActiva = habilidades[0];
             Debug.Log("Habilidad Activa incial: " + habilidadadActiva.GetName());
@@ -78,47 +84,18 @@ public class Movement : MonoBehaviour
 
         }
 
+        // Movimiento del personaje
+        moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        moveVelocity = moveInput.normalized * speed;
 
-        // Mientras se mueve, ignora nueva entrada
-        if (Vector3.Distance(transform.position, targetPosition) > 0.01f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-            return;
-        }
 
-        Vector2 axisDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (axisDirection != Vector2.zero)
-        {
-            if (Mathf.Abs(axisDirection.x) > Mathf.Abs(axisDirection.y))
-            {
-                if (axisDirection.x > 0)
-                {
-                    direction = Direction.right;
-                    targetPosition += Vector3.right;
-                }
-                else
-                {
-                    direction = Direction.left;
-                    targetPosition += Vector3.left;
-                }
-            }
-            else
-            {
-                if (axisDirection.y > 0)
-                {
-                    direction = Direction.up;
-                    targetPosition += Vector3.up;
-                }
-                else
-                {
-                    direction = Direction.down;
-                    targetPosition += Vector3.down;
-                }
-            }
 
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+    }
 
-        }
+    private void FixedUpdate()
+    {
+        // Movimiento físico estable
+        rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
     }
 
 
