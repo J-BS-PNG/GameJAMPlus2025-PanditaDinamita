@@ -26,6 +26,8 @@ public class Movement : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
 
+    public bool objectObtained;
+
     public List<Image> hearts = new List<Image>();
     //public Sprite fullHeart;       // CorazÃ³n lleno
     //public Sprite emptyHeart; 
@@ -64,7 +66,7 @@ public class Movement : MonoBehaviour
             }
             else 
             {
-                Debug.Log($"{habilidadadActiva.GetName()} no tiene más usos.");
+                Debug.Log($"{habilidadadActiva.GetName()} no tiene mï¿½s usos.");
             }
 
         }
@@ -133,6 +135,11 @@ public class Movement : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             TakeDamage(1); 
+        }
+        else if(other.CompareTag("Item"))
+        {
+            objectObtained = true;
+            Debug.Log("Object obtained!");
         }
     }
 
