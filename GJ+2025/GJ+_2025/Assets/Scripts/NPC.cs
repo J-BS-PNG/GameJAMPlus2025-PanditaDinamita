@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NPC : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class NPC : MonoBehaviour
 
     private GameObject activeBubble;
 
+    public string sceneName;
+
     void Start()
     {
         player.objectObtained = false;
@@ -25,10 +28,13 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (player.objectObtained)
+            if (player.objectObtained){
                 ShowDialogue(DialogueEnd);
-            else
+                SceneManager.LoadScene(sceneName);
+            }
+            else{
                 ShowDialogue(DialogueStart);
+            }
         }
     }
 
@@ -73,7 +79,7 @@ public class NPC : MonoBehaviour
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 
         float pixelOffsetX = 1200f; // lado donde quieres que aparezca
-        screenPos.x += playerIsLeft ? -pixelOffsetX : -pixelOffsetX;
+        screenPos.x += playerIsLeft ? pixelOffsetX : -pixelOffsetX;
 
         activeBubble.transform.position = screenPos;
 
