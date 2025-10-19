@@ -40,6 +40,13 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
 
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
+
+    [SerializeField] private AudioClip audio1;
+    [SerializeField] private AudioClip audio2;
+
+
+
 
 
     //public Sprite fullHeart;       // Corazón lleno
@@ -58,6 +65,7 @@ public class Movement : MonoBehaviour
 
         habilidades.AddRange(GetComponents<IAbility>());
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
 
         if (habilidades.Count > 0) 
         {
@@ -164,11 +172,13 @@ public class Movement : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(1);
+            audioSource.PlayOneShot(audio1);
         }
         else if (other.gameObject.CompareTag("Item"))
         {
             objectObtained = true;
             Debug.Log("Object obtained!");
+            audioSource.PlayOneShot(audio2);
             Destroy(other.gameObject);
         }
     }
