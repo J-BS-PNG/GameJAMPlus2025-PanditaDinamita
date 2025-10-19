@@ -77,13 +77,10 @@ public class NPC : MonoBehaviour
         bool playerIsLeft = player.transform.position.x < transform.position.x;
 
         // 🔹 Posición con offset en píxeles
-        Vector3 worldPos = transform.position + Vector3.up * 2f;
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 
-        float pixelOffsetX = 1200f; // lado donde quieres que aparezca
-        screenPos.x += playerIsLeft ? -pixelOffsetX : -pixelOffsetX;
+        // Establecer posición fija dentro del Canvas
+        bubbleRect.anchoredPosition = new Vector2(540f, -250f);
 
-        activeBubble.transform.position = screenPos;
 
         // 🔹 Animación de aparición
         bubbleRect.localScale = Vector3.zero;
