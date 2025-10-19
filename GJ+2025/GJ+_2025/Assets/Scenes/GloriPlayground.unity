@@ -1394,6 +1394,7 @@ MonoBehaviour:
   dialogueBubblePrefab: {fileID: 2759105459389334708, guid: 5c895c36a49b22b4893f024115ace59f, type: 3}
   uiCanvas: {fileID: 727856394}
   bubbleDuration: 3
+  sceneName: Endings
 --- !u!1 &1404181003
 GameObject:
   m_ObjectHideFlags: 0
