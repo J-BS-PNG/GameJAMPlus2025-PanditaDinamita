@@ -58,7 +58,15 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && habilidadadActiva != null) 
         {
-            habilidadadActiva.UseAbility();
+            if (habilidadadActiva.canUse()) 
+            {
+                habilidadadActiva.UseAbility();
+            }
+            else 
+            {
+                Debug.Log($"{habilidadadActiva.GetName()} no tiene más usos.");
+            }
+
         }
         // Mientras se mueve, ignora nueva entrada
         if (Vector3.Distance(transform.position, targetPosition) > 0.01f)
