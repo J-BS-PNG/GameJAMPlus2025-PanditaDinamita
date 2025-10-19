@@ -41,7 +41,6 @@ public class NPC : MonoBehaviour
         }
     }
 
-
     void ShowDialogue(string message)
     {
         if (activeBubble != null)
@@ -71,5 +70,4 @@ public class NPC : MonoBehaviour
 
         Destroy(activeBubble, bubbleDuration);
     }
-
 }

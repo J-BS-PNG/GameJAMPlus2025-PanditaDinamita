@@ -154,8 +154,9 @@ public class Movement : MonoBehaviour
             Debug.Log("Se rompio");
         }
     }
+    }
 
-    private void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("ObjectoB"))
         {
@@ -165,7 +166,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    void TakeDamage(int damage)
     {
         currentHealth -= damage;
         Debug.Log("Character took " + damage + " damage. Current health: " + currentHealth);
@@ -175,7 +176,8 @@ public class Movement : MonoBehaviour
             Debug.Log("Character has died.");
         }
     }
-    private void SetActiveAbility(int index) 
+    
+    void SetActiveAbility(int index) 
     {
         if(index >= 0 && index < habilidades.Count) 
         {
@@ -183,8 +185,8 @@ public class Movement : MonoBehaviour
             Debug.Log("Habilidad Activa: " + habilidadadActiva.GetName());
         }
     }
-
 }
+
 
         
 
