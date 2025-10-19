@@ -26,6 +26,8 @@ public class Movement : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
 
+    private Rigidbody2D rb;
+
     public bool objectObtained;
 
     public List<Image> hearts = new List<Image>();
@@ -35,6 +37,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         targetPosition = transform.position;
         currentHealth = maxHealth;
         direction = Direction.down; 
@@ -115,7 +118,8 @@ public class Movement : MonoBehaviour
                 }
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            rb.MovePosition(Vector2.MoveTowards(rb.position, targetPosition, speed * Time.fixedDeltaTime));
+
         }
     }
 
@@ -136,15 +140,15 @@ public class Movement : MonoBehaviour
         }*/
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
 
         Debug.Log("Character collided");
-        if (other.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(1); 
         }
-        else if(other.CompareTag("Item"))
+        else if(other.gameObject.CompareTag("Item"))
         {
             objectObtained = true;
             Debug.Log("Object obtained!");

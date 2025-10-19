@@ -22,9 +22,9 @@ public class NPC : MonoBehaviour
         player.objectObtained = false;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             if (player.objectObtained)
             {
