@@ -6,6 +6,7 @@ public class BreakAbility : MonoBehaviour, IAbility
 {
     [SerializeField] private int maxUses = 3;
     private int currentUses;
+    private GameObject objectoCercano;
 
     void Start()
     {
@@ -18,6 +19,11 @@ public class BreakAbility : MonoBehaviour, IAbility
         {
             Debug.Log("No quedan usos para el romper");
             return;
+        }
+
+        if(objectoCercano != null) 
+        {
+            Destroy(objectoCercano);
         }
 
         currentUses--;
@@ -35,6 +41,26 @@ public class BreakAbility : MonoBehaviour, IAbility
     }
 
     public string GetName() => "Romper";
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+
+        if (other.CompareTag("ObjectoB"))
+        {
+            objectoCercano = other.gameObject;
+            Debug.Log("Se rompio");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("ObjectoB"))
+        {
+            objectoCercano = null;
+            Debug.Log("Salio de habilidad");
+        }
+    }
 
 
 }
