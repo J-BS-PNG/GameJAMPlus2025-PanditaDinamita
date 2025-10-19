@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public enum Direction
@@ -26,8 +27,6 @@ public class Movement : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
 
-    private Rigidbody2D rb;
-
     public bool objectObtained;
 
     public List<Image> hearts = new List<Image>();
@@ -37,7 +36,6 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         targetPosition = transform.position;
         currentHealth = maxHealth;
         direction = Direction.down; 
@@ -118,7 +116,7 @@ public class Movement : MonoBehaviour
                 }
             }
 
-            rb.MovePosition(Vector2.MoveTowards(rb.position, targetPosition, speed * Time.fixedDeltaTime));
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
         }
     }
@@ -126,32 +124,24 @@ public class Movement : MonoBehaviour
 
     void UpdateHearts()
     {
-
         Image lastHeart = hearts[hearts.Count - 1];
         hearts.RemoveAt(hearts.Count - 1);
         Destroy(lastHeart.gameObject); // Elimina el objeto del Canvas
-    
-        /*for (int i = 0; i < hearts.Length; i++)
-        {
-            if (i < currentHealth)
-                hearts[i].sprite = fullHeart;
-            else
-                hearts[i].sprite = emptyHeart;
-        }*/
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
 
         Debug.Log("Character collided");
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             TakeDamage(1); 
         }
-        else if(other.gameObject.CompareTag("Item"))
+        else if(other.CompareTag("Item"))
         {
             objectObtained = true;
             Debug.Log("Object obtained!");
+            Destroy(other.gameObject);
 
     }
     }
@@ -175,6 +165,7 @@ public class Movement : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Character has died.");
+            SceneManager.LoadScene("Endings");
         }
     }
     

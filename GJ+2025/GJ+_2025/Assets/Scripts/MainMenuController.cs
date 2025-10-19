@@ -22,17 +22,18 @@ public class MainMenuController : MonoBehaviour
     {
         // Logic to start the game, e.g., loading a new scene
         Debug.Log("Starting the game...");
-        menu.SetActive(false);
-        StoryObjects[index].SetActive(true);
+        //menu.SetActive(false);
+        SceneManager.LoadScene("Gloriplayground");
+        //StoryObjects[index].SetActive(true);
 
     }
 
-    void Update(){
+    /*void Update(){
         if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)){
             Debug.Log("Space key pressed, advancing story...");
-            AdvanceStory();
+            //AdvanceStory();
         }
-    }
+    }*/
 
 
     void AdvanceStory()
@@ -45,7 +46,8 @@ public class MainMenuController : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("Gloriplayground");
         }
     }
+
 }
