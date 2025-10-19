@@ -26,6 +26,8 @@ public class Movement : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
 
+    public bool objectObtained;
+
     public List<Image> hearts = new List<Image>();
     //public Sprite fullHeart;       // CorazÃ³n lleno
     //public Sprite emptyHeart; 
@@ -70,7 +72,7 @@ public class Movement : MonoBehaviour
             }
             else 
             {
-                Debug.Log($"{habilidadadActiva.GetName()} no tiene más usos.");
+                Debug.Log($"{habilidadadActiva.GetName()} no tiene mï¿½s usos.");
             }
 
         }
@@ -142,7 +144,12 @@ public class Movement : MonoBehaviour
         {
             TakeDamage(1); 
         }
+        else if(other.CompareTag("Item"))
+        {
+            objectObtained = true;
+            Debug.Log("Object obtained!");
 
+    }
     }
 
     public Direction GetCurrentDirection() 
@@ -156,7 +163,7 @@ public class Movement : MonoBehaviour
         targetPosition = newPosition;
     }
 
-    public void TakeDamage(int damage)
+    void TakeDamage(int damage)
     {
         currentHealth -= damage;
         Debug.Log("Character took " + damage + " damage. Current health: " + currentHealth);
@@ -166,7 +173,8 @@ public class Movement : MonoBehaviour
             Debug.Log("Character has died.");
         }
     }
-    private void SetActiveAbility(int index) 
+    
+    void SetActiveAbility(int index) 
     {
         if(index >= 0 && index < habilidades.Count) 
         {
@@ -174,8 +182,8 @@ public class Movement : MonoBehaviour
             Debug.Log("Habilidad Activa: " + habilidadadActiva.GetName());
         }
     }
-
 }
+
 
         
 
