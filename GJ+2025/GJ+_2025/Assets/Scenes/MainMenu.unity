@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sale Town
+  m_text: Villa Maquila
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1474,10 +1474,10 @@ MonoBehaviour:
     just unable to perceive it"
   - 'You: Some?'
   - "Shirt: Yes, some. Clothes have the ability to retain memories, the more memories
-    we get, the more power we\u2019ll You: Wait, what happens to the clothes aren\u2019t
-    worn?. This allows us to talk and get different powers. On the other hand, the
-    clothes that aren\u2019t worn, well\u2026 they have a different path."
-  - 'You: ...'
+    we get, the more power we\u2019ll . This allows us to talk and get different
+    powers. On the other hand, the clothes that aren\u2019t worn, well\u2026 they
+    have a different path."
+  - "You: Wait, what happens to the clothes aren\u2019t worn?"
   - ' Shirt: They become ghosts full of resentment that consume everything on their
     paths, deteriorating the city where their creators live, unaware of the events
     transpiring because of them.'

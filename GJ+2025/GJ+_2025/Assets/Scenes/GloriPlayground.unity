@@ -1388,8 +1388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fd72fd09eb2f74eb19ae6b908b5248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialogueStart: Hi
-  DialogueEnd: Oh! I forgot I had these!
+  DialogueStart: I have to get a pair of sneakers for the marathon!
+  DialogueEnd: "I forgot I had these sneakers! I don\xB4t need new ones now."
   player: {fileID: 1563440190}
   dialogueBubblePrefab: {fileID: 2759105459389334708, guid: 5c895c36a49b22b4893f024115ace59f, type: 3}
   uiCanvas: {fileID: 727856394}
