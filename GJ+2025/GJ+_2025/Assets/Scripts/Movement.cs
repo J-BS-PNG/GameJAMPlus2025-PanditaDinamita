@@ -85,7 +85,7 @@ public class Movement : MonoBehaviour
             {
                 habilidadadActiva.UseAbility();
                 habilidadesRestantes = habilidadadActiva.remainingUses();
-                debug.Log($"Usando {habilidadadActiva.GetName()}, usos restantes: {habilidadesRestantes}");
+                Debug.Log($"Usando habilidad: {habilidadadActiva.GetName()}, usos restantes: {habilidadesRestantes}");
                 UpdatePower();
                 //Destroy(other.gameObject);
             }
@@ -108,7 +108,7 @@ public class Movement : MonoBehaviour
         rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
             // Solo voltear el sprite
         if (moveInput.x != 0)
-            spriteRenderer.flipX = moveInput.x > 0;
+            spriteRenderer.flipX = moveInput.x < 0;
     }
 
     void MoveAndFlip(Vector2 direction)
