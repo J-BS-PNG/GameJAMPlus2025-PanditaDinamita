@@ -105,23 +105,23 @@ public class Movement : MonoBehaviour
         hearts.RemoveAt(hearts.Count - 1);
         Destroy(lastHeart.gameObject); // Elimina el objeto del Canvas
     }
-
-    void OnTriggerEnter2D(Collider2D other)
+    
+    void OnCollisionEnter2D(Collision2D other)
     {
-
         Debug.Log("Character collided");
-        if (other.CompareTag("Enemy"))
+
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            TakeDamage(1); 
+            TakeDamage(1);
         }
-        else if(other.CompareTag("Item"))
+        else if (other.gameObject.CompareTag("Item"))
         {
             objectObtained = true;
             Debug.Log("Object obtained!");
             Destroy(other.gameObject);
+        }
+    }
 
-    }
-    }
 
     public Direction GetCurrentDirection() 
     {
