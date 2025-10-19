@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public enum Direction
@@ -116,24 +117,16 @@ public class Movement : MonoBehaviour
             }
 
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
         }
     }
 
 
     void UpdateHearts()
     {
-
         Image lastHeart = hearts[hearts.Count - 1];
         hearts.RemoveAt(hearts.Count - 1);
         Destroy(lastHeart.gameObject); // Elimina el objeto del Canvas
-    
-        /*for (int i = 0; i < hearts.Length; i++)
-        {
-            if (i < currentHealth)
-                hearts[i].sprite = fullHeart;
-            else
-                hearts[i].sprite = emptyHeart;
-        }*/
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -148,6 +141,7 @@ public class Movement : MonoBehaviour
         {
             objectObtained = true;
             Debug.Log("Object obtained!");
+            Destroy(other.gameObject);
 
     }
     }
@@ -171,6 +165,7 @@ public class Movement : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Character has died.");
+            SceneManager.LoadScene("Endings");
         }
     }
     
